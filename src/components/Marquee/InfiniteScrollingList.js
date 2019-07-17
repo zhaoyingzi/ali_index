@@ -6,11 +6,17 @@ import InfiniteScrollingListItem from './Item/InfiniteScrollingListItem';
 
 class InfiniteScrollingList extends Component {
   componentDidMount() {
-    const { speed } = this.props;
-    const scrollSpeed = speed ? speed : 20;
+    const { gap, speed } = this.props;
+    const heightGap = gap ? gap : 0;
+    const scrollSpeed = speed ? speed : 200;
     const scrollContent = document.getElementById('scrollContent');
+    const scrollDiv1 = document.getElementById('scrollDiv1');
+    const scrollDiv2 = document.getElementById('scrollDiv2');
 
     function Marquee() {
+      if (scrollDiv2.offsetTop - scrollContent.scrollTop <= heightGap) {
+        scrollContent.scrollTop -= scrollDiv1.offsetHeight;
+      }
       scrollContent.scrollTop++;
     }
 
@@ -51,6 +57,11 @@ class InfiniteScrollingList extends Component {
         </div>
         <div id='scrollContent' style={this.setStyle(h, w)}>
           <div id='scrollDiv1'>
+            <ul>
+            {tableData}
+            </ul>
+          </div>
+          <div id='scrollDiv2'>
             <ul>
             {tableData}
             </ul>
